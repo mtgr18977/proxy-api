@@ -1,13 +1,18 @@
 export default async function handler(req, res) {
-  // Adiciona suporte a CORS
+  // CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Access-Token");
 
-  // Responde à requisição de preflight do CORS
   if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
+    return res.status(200).end();
+  }
+
+  const clientToken = req.headers['x-access-token'];
+  const expectedToken = process.env.X_ACCESS_TOKEN;
+
+  if (!clientToken || clientToken !== expectedToken) {
+    return res.status(403).json({ error: "Token inválido" });
   }
 
   try {
