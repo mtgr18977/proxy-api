@@ -1,16 +1,13 @@
 {
   "rewrites": [
-    // 1) mapear completions → chat
     {
       "source": "/api/chat/completions",
       "destination": "/api/chat"
     },
-    // 2) manter embeddings
     {
       "source": "/api/embeddings",
       "destination": "/api/embeddings"
     },
-    // 3) suas outras regras
     { "source": "/api/:path*",       "destination": "/api/:path*" },
     { "source": "/output.json",      "destination": "/output.json" },
     { "source": "/(.*)",             "destination": "/index.html" }
