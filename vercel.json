@@ -1,16 +1,27 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/:path*" },
-    { "source": "/output.json", "destination": "/output.json" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    // 1) mapear completions → chat
+    {
+      "source": "/api/chat/completions",
+      "destination": "/api/chat"
+    },
+    // 2) manter embeddings
+    {
+      "source": "/api/embeddings",
+      "destination": "/api/embeddings"
+    },
+    // 3) suas outras regras
+    { "source": "/api/:path*",       "destination": "/api/:path*" },
+    { "source": "/output.json",      "destination": "/output.json" },
+    { "source": "/(.*)",             "destination": "/index.html" }
   ],
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Origin",  "value": "*" },
         { "key": "Access-Control-Allow-Methods", "value": "POST,OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+        { "key": "Access-Control-Allow-Headers","value": "Content-Type" }
       ]
     }
   ]
