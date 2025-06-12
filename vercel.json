@@ -1,4 +1,14 @@
 {
+  "rewrites": [
+    // deixe suas rotas /api válidas…
+    { "source": "/api/:path*", "destination": "/api/:path*" },
+
+    // sirva output.json sem cair no fallback
+    { "source": "/output.json", "destination": "/output.json" },
+
+    // por fim, tudo o mais cai em index.html
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
